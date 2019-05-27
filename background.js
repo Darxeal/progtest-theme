@@ -17,6 +17,20 @@ chrome.runtime.onMessage.addListener(
     (request, sender, sendResponse) => {
         if (request.type == "config")
             sendResponse({ theme: theme, dropdown: dropdown })
+        else if (request.type == "download") {
+            //if (request.url.substring(0, 15) == "data:image/png;") {
+                chrome.downloads.download({
+                    url: request.url,
+                    saveAs: true
+                })
+                sendResponse({ status: 'ok' })
+            //} else
+            //    sendResponse({ status: 'wrong URL type' })
+        } else if (request.type == "include") {
+            chrome.tabs.executeScript(null, {file: './vendor/' + request.file}, result => {
+                sendResponse(result)
+            })
+        }
     })
 
 chrome.storage.onChanged.addListener(

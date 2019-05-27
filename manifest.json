@@ -6,7 +6,13 @@
     "content_scripts": [
         {
             "run_at": "document_start",
-            "js": ["content.js"],
+            "js": ["content_start.js"],
+            "matches": ["*://progtest.fit.cvut.cz/*"],
+            "all_frames": true
+        },
+        {
+            "run_at": "document_end",
+            "js": ["content_end.js"],
             "matches": ["*://progtest.fit.cvut.cz/*"],
             "all_frames": true
         }
@@ -20,7 +26,8 @@
         "webRequestBlocking",
         "*://progtest.fit.cvut.cz/*",
         "storage",
-        "tabs"
+        "tabs",
+        "downloads"
     ],
     "browser_action": {
         "default_title": "",
@@ -31,6 +38,7 @@
         "128": "icon.png"
     },
     "web_accessible_resources": [
-        "themes/*"
+        "themes/*",
+        "vendor/*"
     ]
 }
